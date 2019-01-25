@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{d059c7f1-4ff0-46f1-b3bc-41497aaed9a2}">
+        <property name="assetPath">
+            <value>NoisePaulLoop.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>12.368437500000001</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{65499f0a-2314-4a15-a644-bf6d1468cbd4}</destination>
+        </relationship>
+    </object>
+</objects>
