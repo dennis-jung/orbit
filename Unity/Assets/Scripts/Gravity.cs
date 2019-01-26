@@ -37,9 +37,6 @@ public class Gravity : MonoBehaviour
         //player.transform.localPosition.Set(player.transform.localPosition.x - 0.05f, player.transform.localPosition.y, 0.0f);
         player.GetComponent<Rigidbody2D>().AddForce(v.normalized * (1.0f / dist) * maxGravity);
 
-
-        player.GetComponent<Rigidbody2D>().AddForce( player.transform.TransformDirection(Vector3.down) * drag);
-
         Debug.DrawRay(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, Color.red);
 
         Debug.DrawRay(player.transform.position, v.normalized, Color.blue);
@@ -73,7 +70,7 @@ public class Gravity : MonoBehaviour
             Debug.DrawRay(player.transform.position, tangent, Color.yellow);
 
             player.GetComponent<Rigidbody2D>().AddForce(force);
-            player.GetComponent<Rigidbody2D>().AddForce(tangent);
+            player.GetComponent<Rigidbody2D>().AddForce(tangent.normalized * 1/tangent.magnitude);
             //Debug.Log("Jump");
             Debug.DrawRay(player.transform.position, force, Color.white);
         }
