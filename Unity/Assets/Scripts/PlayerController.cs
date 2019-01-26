@@ -124,8 +124,13 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Save Pos: " + savePos);
 
             playerNode.transform.position = closestPlanet.planet.position;
-
             playerNode.GetChild(0).transform.position = savePos;
+
+            var newDownVec = closestPlanet.transform.position - player.GetChild(0).transform.position;
+
+            var angle = Vector3.Angle(newDownVec, playerNode.transform.localEulerAngles);
+
+            playerNode.GetChild(0).transform.Rotate(Vector3.forward, angle);
 
             currentVerticalSpeed *= -1f;
 			inputIsBlocked = true;
