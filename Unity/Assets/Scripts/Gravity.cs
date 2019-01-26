@@ -10,13 +10,13 @@ public class Gravity : MonoBehaviour
     private float initalForce = 15.0f;
 
     [SerializeField]
-    private float maxGravity = 2.0f;
+    private float gravity = 2.0f;
 
     [SerializeField]
     private float strength = 500.0f;
 
     [SerializeField]
-    private float drag = .5f;
+    private float drag = 1.5f;
 
 
     public GameObject player;
@@ -35,9 +35,12 @@ public class Gravity : MonoBehaviour
 
         var v = transform.position - player.transform.position;
         //player.transform.localPosition.Set(player.transform.localPosition.x - 0.05f, player.transform.localPosition.y, 0.0f);
-        player.GetComponent<Rigidbody2D>().AddForce(v.normalized * (1.0f / dist) * maxGravity);
+        player.GetComponent<Rigidbody2D>().AddForce(v.normalized * gravity);
 
         Debug.DrawRay(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, Color.red);
+
+        // drag
+        player.GetComponent<Rigidbody2D>().AddForce(-player.GetComponent<Rigidbody2D>().velocity *  (1/drag));
 
         Debug.DrawRay(player.transform.position, v.normalized, Color.blue);
 
