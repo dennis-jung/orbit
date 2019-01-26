@@ -39,12 +39,18 @@ public class PlayerController : MonoBehaviour
 	[Space]
 	public Transform catchStarter;
 	public Transform catchEnd;
+	public Transform stomach;
 	public float catchTime;
+	public float eatTime;
 	public int maxCatching;
+	public float stomachRadius;
 	[Space]
 	public FlobbliHandler touchedFlobbli;
+	public FlobbliHandler eatingFlobbli;
 	public List<FlobbliHandler> flobbliCatched;
 	float flobbliCatchProgress;
+	float flobbliCatchTimer;
+	float flobbliEatProgress;
 
 	float currentVerticalSpeed;
 	float MaxDistance = 200f;
@@ -57,6 +63,7 @@ public class PlayerController : MonoBehaviour
 		{
 			touchedFlobbli = flobbli;
 			flobbliCatchProgress = 0f;
+			flobbliCatchTimer = catchTime;
 			flobbli.isFree = false;
 		}
 	}
@@ -66,8 +73,30 @@ public class PlayerController : MonoBehaviour
 		if (touchedFlobbli != null)
 		{
 			flobbliCatchProgress += Time.deltaTime / catchTime;
-			touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.position, catchEnd.position, flobbliCatchProgress);
+			flobbliCatchTimer -= Time.deltaTime;
+
+
+
+			touchedFlobbli.transform.position = Vector3.MoveTowards(touchedFlobbli.transform.position, catchEnd.transform.position, Vector3.Distance(touchedFlobbli.transform.position, catchEnd.transform.position) / (flobbliCatchTimer / Time.deltaTime));
+			//touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
+			//touchedFlobbli.flobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
+			touchedFlobbli.flobbli.transform.position = touchedFlobbli.transform.position;
+
+			if (flobbliCatchTimer <= 0)
+			{
+				eatingFlobbli = touchedFlobbli;
+				touchedFlobbli = null;
+				flobbliEatProgress = 0f;
+			}
 		}
+
+		if (eatingFlobbli != null)
+		{
+			flobbliEatProgress += Time.deltaTime / eatTime;
+			touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
+			touchedFlobbli.flobbli.transform.position = touchedFlobbli.transform.position;
+		}
+		
 	}
 
 	public float MinMaxDistance

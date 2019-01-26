@@ -48,10 +48,13 @@ public class FlobbliHandler : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		CalculateVerticalMovement();
-		flobbli.localPosition = new Vector3(flobbli.localPosition.x, flobbli.localPosition.y + currentVerticalSpeed, flobbli.localPosition.z);
-		node.rotation = Quaternion.Euler(node.rotation.eulerAngles.x, node.rotation.eulerAngles.y, node.rotation.eulerAngles.z + ((baseSpeed * direction * speedMod) / 60f));
-		node.transform.position = planet.planet.position;
+		if (isFree)
+		{
+			CalculateVerticalMovement();
+			flobbli.localPosition = new Vector3(flobbli.localPosition.x, flobbli.localPosition.y + currentVerticalSpeed, flobbli.localPosition.z);
+			node.rotation = Quaternion.Euler(node.rotation.eulerAngles.x, node.rotation.eulerAngles.y, node.rotation.eulerAngles.z + ((baseSpeed * direction * speedMod) / 60f));
+			node.transform.position = planet.planet.position;
+		}
 }
 
 	IEnumerator makeDecisions()
