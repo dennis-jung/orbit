@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -68,6 +69,9 @@ public class PlayerController : MonoBehaviour
 			flobbliCatchProgress += Time.deltaTime / catchTime;
 			touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.position, catchEnd.position, flobbliCatchProgress);
 		}
+
+        var vec = planet.transform.position - player.GetChild(0).transform.position;
+        Debug.DrawRay(player.GetChild(0).transform.position, vec, Color.red);
 	}
 
 	public float MinMaxDistance
@@ -112,11 +116,35 @@ public class PlayerController : MonoBehaviour
 
 		if ((planet == null || closestPlanet != planet) && jumpTimer <= 0f)
 		{
+            Debug.Log(String.Format("Old Position: {0} {1} {2}", playerNode.GetChild(0).transform.position.x, playerNode.transform.position.y, playerNode.transform.position.z));
 			jumpTimer = jumpTimeout;
-			direction *= -1f;
-			playerNode.transform.position = closestPlanet.planet.position;
-			player.localPosition = new Vector3(player.localPosition.x, Vector3.Distance(player.position, closestPlanet.planet.position), player.localPosition.z);
-			currentVerticalSpeed *= -1f;
+            direction *= -1f;
+
+
+            // calculate angle
+            var vec1 = planet.transform.position - playerNode.GetChild(0).transform.position;
+            var vec2 = playerNode.GetChild(0).transform.position - closestPlanet.transform.position ;
+
+            Debug.Log("vec1 " + vec1);
+            Debug.Log("vec2 " + vec2);
+
+            var angle = Vector3.Angle(vec1, vec2);
+
+            playerNode.transform.position = closestPlanet.planet.position;
+
+            if (currentVerticalSpeed < 0)
+            {
+                playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z + (180.0f - angle));
+            }
+            else
+            {
+                playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z - (180.0f - angle));
+            }
+            Debug.Log("Adding Angle: " + angle);
+
+            Debug.Log(String.Format("New Position: {0} {1} {2}", playerNode.GetChild(0).transform.position.x, playerNode.transform.position.y, playerNode.transform.position.z));
+            //player.localPosition = new Vector3(player.localPosition.x, Vector3.Distance(player.position, closestPlanet.planet.position), player.localPosition.z);
+            currentVerticalSpeed *= -1f;
 			inputIsBlocked = true;
 			planet = closestPlanet;
 		}
@@ -129,8 +157,7 @@ public class PlayerController : MonoBehaviour
 		player.localPosition = new Vector3(player.localPosition.x, player.localPosition.y + currentVerticalSpeed, player.localPosition.z);
 		if (player.localPosition.y > MaxDistance)
 			player.localPosition = new Vector3(player.localPosition.x, MaxDistance, player.localPosition.z);
-		playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z + ((baseSpeed * direction) / 60f));
-		
+		playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z + ((baseSpeed * direction) * Time.fixedDeltaTime));
 	}
 
 	float GetAngle(Vector3 planetA, Vector3 planetB, Vector3 player)
@@ -152,18 +179,17 @@ public class PlayerController : MonoBehaviour
 
 	PlanetHandler GetClosestPlanet()
 	{
-		PlanetHandler closest = null;
-		PlanetHandler tempPlanet = null;
+		PlanetHandler closest = planet;
 		foreach (GameObject go in GameObject.FindGameObjectsWithTag("PlanetNode"))
 		{
-			tempPlanet = go.GetComponent<PlanetHandler>();
-			if (closest == null || Vector3.Distance(player.position, tempPlanet.planet.position) < Vector3.Distance(player.position, closest.planet.position))
+			var tempPlanet = go.GetComponent<PlanetHandler>();
+			if ( Vector3.Distance(player.GetChild(0).position, tempPlanet.planet.position) < Vector3.Distance(player.GetChild(0).position, closest.planet.position))
 				closest = tempPlanet;
 		}
 		return closest;
 	}
 
-	void CalculateVerticalMovement()
+    void CalculateVerticalMovement()
 	{
 		if (IsUpDown())
 		{
