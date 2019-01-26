@@ -1,0 +1,6 @@
+{a82ae2ca-693e-40f1-a4bd-fd9965af306a} event:/Kinder/Schritte
+{18ee50fc-2297-4c3d-92dd-5eb30209255b} event:/Mutter/Aufkommen
+{e24e3c74-b44c-4c42-8826-54cfca2dbb42} event:/Mutter/Schweben
+{1c14c111-d82c-4bd6-b75f-ee266697c860} bus:/
+{c34ce726-55e4-449c-a679-3a3d94587e0f} bus:/Reverb
+{9dd74ce9-6563-4585-ac8b-419c97bdc8a9} bank:/Master Bank
