@@ -28,6 +28,15 @@ public class FlobbliHandler : MonoBehaviour
 	[Space]
 	public FlobbliAction[] actions;
 	Coroutine decisionMaker;
+	[Space]
+	public float rotateSpeed;
+	public bool doRotate;
+	[Space]
+	public float floatingSpeed;
+	public float maxFloat;
+	public Vector3 floatDirection;
+	public bool doFloat;
+	public float floatRandomizer;
 
 	public float DistanceToPlanet
 	{
@@ -42,8 +51,25 @@ public class FlobbliHandler : MonoBehaviour
 			direction = -1f;
 		else
 			direction = 1f;
-		node.rotation = Quaternion.Euler(node.rotation.eulerAngles.x, node.rotation.eulerAngles.y, UnityEngine.Random.Range(0f, 360f));
+		flobbli.rotation = Quaternion.Euler(flobbli.rotation.eulerAngles.x, flobbli.rotation.eulerAngles.y, UnityEngine.Random.Range(0f, 360f));
 
+	}
+
+	private void Update()
+	{
+		if (doRotate)
+		{
+			flobbli.rotation = Quaternion.Euler(flobbli.rotation.eulerAngles.x, flobbli.rotation.eulerAngles.y, flobbli.rotation.eulerAngles.z + ((baseSpeed * direction) * Time.fixedDeltaTime));
+		}
+		if (doFloat)
+		{
+			if (Vector3.Distance(transform.parent.position, transform.position) >= maxFloat)
+			{
+				floatDirection = new Vector3(-floatDirection.x + UnityEngine.Random.Range(-floatRandomizer, floatRandomizer), -floatDirection.y + UnityEngine.Random.Range(-floatRandomizer, floatRandomizer));
+				floatDirection = floatDirection.normalized;
+			}
+			node.transform.Translate(floatDirection * floatingSpeed);
+		}
 	}
 
 	private void FixedUpdate()

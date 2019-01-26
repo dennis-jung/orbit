@@ -54,16 +54,23 @@ public class PlayerController : MonoBehaviour
 	float flobbliEatProgress;
 
 	float currentVerticalSpeed;
-	float MaxDistance = 200f;
+	public float MaxDistance = 200f;
 
-
+	private void Start()
+	{
+		flobbliCatched = new List<FlobbliHandler>();
+	}
 
 	public void CatchedSomething(FlobbliHandler flobbli)
 	{
-		if (touchedFlobbli == null)
+		int amount = flobbliCatched.Count;
+		if (eatingFlobbli != null)
+			amount++;
+		if (touchedFlobbli == null && amount < maxCatching)
 		{
+			flobbli.node.position = flobbli.flobbli.position;
 			touchedFlobbli = flobbli;
-			flobbliCatchProgress = 0f;
+			flobbli.doRotate = true;
 			flobbliCatchTimer = catchTime;
 			flobbli.isFree = false;
 		}
@@ -71,16 +78,20 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		CatchProgres();
+		EatProgress();
+		InStomachStuff();
+		var vec = planet.transform.position - player.transform.position;
+	}
+
+	void CatchProgres()
+	{
 		if (touchedFlobbli != null)
 		{
-			flobbliCatchProgress += Time.deltaTime / catchTime;
 			flobbliCatchTimer -= Time.deltaTime;
 
 
-
 			touchedFlobbli.transform.position = Vector3.MoveTowards(touchedFlobbli.transform.position, catchEnd.transform.position, Vector3.Distance(touchedFlobbli.transform.position, catchEnd.transform.position) / (flobbliCatchTimer / Time.deltaTime));
-			//touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
-			//touchedFlobbli.flobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
 			touchedFlobbli.flobbli.transform.position = touchedFlobbli.transform.position;
 
 			if (flobbliCatchTimer <= 0)
@@ -90,16 +101,34 @@ public class PlayerController : MonoBehaviour
 				flobbliEatProgress = 0f;
 			}
 		}
-		
+
+	}
+
+	void EatProgress()
+	{
+
 		if (eatingFlobbli != null)
 		{
 			flobbliEatProgress += Time.deltaTime / eatTime;
-			touchedFlobbli.transform.position = Vector3.Lerp(catchStarter.transform.position, catchEnd.transform.position, flobbliCatchProgress);
-			touchedFlobbli.flobbli.transform.position = touchedFlobbli.transform.position;
+			eatingFlobbli.transform.position = Vector3.Lerp(catchEnd.transform.position, stomach.transform.position, flobbliEatProgress);
+			eatingFlobbli.flobbli.transform.position = eatingFlobbli.transform.position;
+			if (flobbliEatProgress >= 1f)
+			{
+				eatingFlobbli.transform.SetParent(stomach);
+				eatingFlobbli.maxFloat = stomachRadius * player.lossyScale.x;
+				eatingFlobbli.doFloat = true;
+				eatingFlobbli.floatDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f).normalized;
+				flobbliCatched.Add(eatingFlobbli);
+				eatingFlobbli = null;
+
+			}
 		}
-		
-        var vec = planet.transform.position - player.GetChild(0).transform.position;
-        Debug.DrawRay(player.GetChild(0).transform.position, vec, Color.red);
+
+	}
+
+	void InStomachStuff()
+	{
+
 	}
 
 	public float MinMaxDistance
@@ -148,12 +177,12 @@ public class PlayerController : MonoBehaviour
 			jumpTimer = jumpTimeout;
             direction *= -1f;
 
-            var savePos = playerNode.GetChild(0).transform.position;
+            var savePos = playerNode.transform.position;
             //Debug.Log("Save Pos: " + savePos);
 
             playerNode.transform.position = closestPlanet.planet.position;
 
-            playerNode.GetChild(0).transform.position = savePos;
+            player.transform.position = savePos;
 
             currentVerticalSpeed *= -1f;
 			inputIsBlocked = true;
