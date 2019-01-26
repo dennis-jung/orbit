@@ -120,16 +120,6 @@ public class PlayerController : MonoBehaviour
 			jumpTimer = jumpTimeout;
             direction *= -1f;
 
-
-            // calculate angle
-            //var vec1 = planet.transform.position - playerNode.GetChild(0).transform.position;
-            //var vec2 = playerNode.GetChild(0).transform.position - closestPlanet.transform.position ;
-
-            //Debug.Log("vec1 " + vec1);
-            //Debug.Log("vec2 " + vec2);
-
-            //var angle = Vector3.Angle(vec1, vec2);
-
             var savePos = playerNode.GetChild(0).transform.position;
             //Debug.Log("Save Pos: " + savePos);
 
