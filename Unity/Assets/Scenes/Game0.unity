@@ -613,9 +613,13 @@ MonoBehaviour:
   direction: -1
   catchStarter: {fileID: 1765540185}
   catchEnd: {fileID: 88196494}
+  stomach: {fileID: 0}
   catchTime: 2
+  eatTime: 0
   maxCatching: 3
+  stomachRadius: 0
   touchedFlobbli: {fileID: 0}
+  eatingFlobbli: {fileID: 0}
   flobbliCatched: []
 --- !u!4 &1405225962
 Transform:
@@ -839,7 +843,8 @@ MonoBehaviour:
   planet: {fileID: 3987355816647430106, guid: 419dee7f3f59a75439ce8e6f391c4be0, type: 3}
   countLevel1: 5
   countLevel2: 10
-  countLevel3: 40
+  countLevel3: 20
+  minDistance: 100
 --- !u!4 &1802516459
 Transform:
   m_ObjectHideFlags: 0
