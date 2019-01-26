@@ -30,6 +30,7 @@ public class Gravity : MonoBehaviour
         player.GetComponent<Rigidbody2D>().AddForce(Vector3.up * initalForce);
 
         allPlanets = GameObject.FindGameObjectsWithTag("Planet");
+
     }
 
     private void FindNearestPlanet()
@@ -37,7 +38,7 @@ public class Gravity : MonoBehaviour
         float minDist = 10000.0f;
         foreach (var planet in allPlanets)
         {
-            float dist = Vector3.Distance(planet.transform.position, transform.position);
+            float dist = Vector3.Distance(planet.transform.position, player.transform.position);
             if (dist < minDist)
             {
                 nearestPlanet = planet;
@@ -51,9 +52,9 @@ public class Gravity : MonoBehaviour
     {
         FindNearestPlanet();
 
-        float dist = Vector3.Distance(player.transform.position, transform.position);
+        float dist = Vector3.Distance(player.transform.position, nearestPlanet.transform.position);
 
-        var v = transform.position - player.transform.position;
+        var v = nearestPlanet.transform.position - player.transform.position;
         //player.transform.localPosition.Set(player.transform.localPosition.x - 0.05f, player.transform.localPosition.y, 0.0f);
         player.GetComponent<Rigidbody2D>().AddForce(v.normalized * gravity);
 
@@ -82,8 +83,8 @@ public class Gravity : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            float dist = Vector3.Distance(player.transform.position, transform.position);
-            var v = transform.position - player.transform.position;
+            float dist = Vector3.Distance(player.transform.position, nearestPlanet.transform.position);
+            var v = nearestPlanet.transform.position - player.transform.position;
             var force = -v.normalized * (1.0f / dist) * strength;
 
             var velo = player.GetComponent<Rigidbody2D>().velocity;
@@ -93,7 +94,7 @@ public class Gravity : MonoBehaviour
             Debug.DrawRay(player.transform.position, tangent, Color.yellow);
 
             player.GetComponent<Rigidbody2D>().AddForce(force);
-            player.GetComponent<Rigidbody2D>().AddForce(tangent.normalized * 1/tangent.magnitude);
+            player.GetComponent<Rigidbody2D>().AddForce(tangent);
             //Debug.Log("Jump");
             Debug.DrawRay(player.transform.position, force, Color.white);
         }
