@@ -316,11 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e892db84ad7bbc34faafe3b12ff412d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initalForce: 50
-  maxGravity: 2
+  initalForce: 15
+  gravity: 2
   strength: 50
-  drag: 0.5
-  player: {fileID: 0}
+  drag: 2
 --- !u!1 &1211552277
 GameObject:
   m_ObjectHideFlags: 0

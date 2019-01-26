@@ -5,7 +5,6 @@ using System;
 public class Gravity : MonoBehaviour
 {
 
-    //public float maxGravDist = 4.0f;
     [SerializeField]
     private float initalForce = 15.0f;
 
@@ -17,19 +16,40 @@ public class Gravity : MonoBehaviour
 
     [SerializeField]
     private float drag = 1.5f;
+    
+    private GameObject player;
 
+    private GameObject nearestPlanet;
 
-    public GameObject player;
+    private GameObject[] allPlanets;
 
     void Start()
     {
         //player = GameObject.FindGameObjectWithTag("Player");
         player = transform.Find("Player").gameObject;
         player.GetComponent<Rigidbody2D>().AddForce(Vector3.up * initalForce);
+
+        allPlanets = GameObject.FindGameObjectsWithTag("Planet");
+    }
+
+    private void FindNearestPlanet()
+    {
+        float minDist = 10000.0f;
+        foreach (var planet in allPlanets)
+        {
+            float dist = Vector3.Distance(planet.transform.position, transform.position);
+            if (dist < minDist)
+            {
+                nearestPlanet = planet;
+                minDist = dist;
+            }
+        }
+        //Debug.Log("Nearest Plant found: "+ nearestPlanet.name);
     }
 
     void FixedUpdate()
     {
+        FindNearestPlanet();
 
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
