@@ -9,6 +9,15 @@ public class InitPlanet : MonoBehaviour
 
     [SerializeField]
     GameObject[] innerPlants;
+
+    [SerializeField]
+    GameObject creature;
+
+    [SerializeField]
+    int minCreatures;
+
+    [SerializeField]
+    int maxCreatures;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +44,19 @@ public class InitPlanet : MonoBehaviour
                 GameObject myPlant = GameObject.Instantiate(plant, newPos + transform.position, Quaternion.FromToRotation(Vector3.up, newPos));
                 myPlant.transform.SetParent(transform);
             }
+        }
 
+        CreateCreatures();
+
+    }
+
+    private void CreateCreatures()
+    {
+        for (int x = 0; x < UnityEngine.Random.Range(minCreatures, maxCreatures); x++)
+        {
+            GameObject myCreature = GameObject.Instantiate(creature, Vector3.zero, Quaternion.identity);
+            var handler = myCreature.GetComponent<FlobbliHandler>();
+            handler.planet = transform.parent.GetComponent<PlanetHandler>();
         }
     }
 
