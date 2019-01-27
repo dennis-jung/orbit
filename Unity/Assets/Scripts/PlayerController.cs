@@ -286,10 +286,31 @@ public class PlayerController : MonoBehaviour
 		return f;
 	}
 
+	//hi
 	private void FixedUpdate()
 	{
 		PlanetHandler closestPlanet = GetClosestPlanet();
+		if (closestPlanet != planet && jumpTimer <= 0f) {
+			if (Vector3.Distance(planet.planet.position, closestPlanet.planet.position) >=
+				Vector3.Distance(planet.planet.position, player.position) +
+				Vector3.Distance(player.position, closestPlanet.planet.position) * 0.99f)
+			{
+				planet = closestPlanet;
+				playerDistance = Vector3.Distance(planet.planet.position, playerNode.position);
+				playerRotation += 180f;
 
+				jumpTimer = jumpTimeout;
+				direction *= -1f;
+				currentVerticalSpeed *= -1f;
+				inputIsBlocked = true;
+			}
+
+		}
+		jumpTimer -= Time.fixedDeltaTime;
+		
+
+
+		/*
 		if ((planet == null || closestPlanet != planet) && jumpTimer <= 0f)
 		{
 			planet = closestPlanet;
@@ -304,6 +325,7 @@ public class PlayerController : MonoBehaviour
 			inputIsBlocked = true;
 		}
 		jumpTimer -= Time.fixedDeltaTime;
+		*/
 
 
 		/*

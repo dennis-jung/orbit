@@ -82,7 +82,6 @@ public class FlobbliHandler : MonoBehaviour
 			yield return null;
 		}
 		flobbli.localRotation = Quaternion.Euler(0, 0, 0);
-		Debug.Log("lol_doneQ");
 	}
 
 	IEnumerator FlyAway(float speed, float height)
@@ -111,7 +110,6 @@ public class FlobbliHandler : MonoBehaviour
 			{
 				isFree = true;
 				isDone = true;
-				Debug.Log("lol_done");
 			}
 
 			speedMod *= 0.99f;
