@@ -55,14 +55,55 @@ public class PlayerController : MonoBehaviour
 
 	float currentVerticalSpeed;
 	public float MaxDistance = 200f;
+	public bool touchedGround;
 
 	private void Start()
 	{
 		flobbliCatched = new List<FlobbliHandler>();
+		playerDistance = planet.PlanetSize * 2;
+	}
+	[Space]
+	public float playerRotation;
+	public float playerDistance;
+
+	[Space]
+	Vector3 changeForce;
+	float changeForceFalloff;
+	public float changeForceTime = 2f;
+	public float changeForcePower = 2f;
+
+	private void Move()
+	{
+
+
+		playerRotation += (baseSpeed * direction) * Time.fixedDeltaTime;
+		if (playerRotation >= 360f)
+			playerRotation -= 360f;
+		else if (playerRotation <= -360f)
+			playerRotation += 360f;
+
+		CalculateVerticalMovement();
+		playerDistance += currentVerticalSpeed;
+
+		Vector3 vector = Quaternion.Euler(0, 0, playerRotation) * Vector3.up;
+		playerNode.position = planet.planet.transform.position + (vector * playerDistance);
+		playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerRotation);
+
+		if (changeForceFalloff > 0f)
+		{
+			playerNode.position += Falloff;
+			changeForceFalloff -= Time.deltaTime / changeForceTime;
+
+			playerDistance = Vector3.Distance(planet.planet.position, playerNode.position);
+		}
+		if (playerDistance > MaxDistance)
+			playerDistance = MaxDistance;
 	}
 
 	public void CatchedSomething(FlobbliHandler flobbli)
 	{
+		if (planet.isHome)
+			return;
 		int amount = flobbliCatched.Count;
 		if (eatingFlobbli != null)
 			amount++;
@@ -78,10 +119,18 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		if (touchedGround)
+			LooseMinions();
+		touchedGround = false;
 		CatchProgres();
 		EatProgress();
 		InStomachStuff();
-		var vec = planet.transform.position - player.transform.position;
+		//var vec = planet.transform.position - player.transform.position;
+	}
+
+	void LooseMinions()
+	{
+
 	}
 
 	void CatchProgres()
@@ -131,6 +180,11 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+	public Vector3 Falloff
+	{
+		get { return changeForce * changeForceFalloff * changeForcePower + changeForce * changeForceFalloff * changeForcePower * maxSpeedMod * MinMaxDistance; }
+	}
+
 	public float MinMaxDistance
 	{
 		get { return Mathf.InverseLerp(planet.planetSizeFactor + minBonusDistance, MaxDistance, player.localPosition.y - planet.planetSizeFactor); }
@@ -166,36 +220,81 @@ public class PlayerController : MonoBehaviour
 		get { return Vector3.Distance(player.position, planet.planet.position) - player.localScale.x/2f; }
 	}
 
+	float FindRotation(Vector3 pos, float distance, Vector3 node)
+	{
+		Vector3 min = node + ((Quaternion.Euler(0, 0, 0) * Vector3.up) * distance);
+		float f = 0;
+		Vector3 p;
+		for (float i = 1; i <= 359; i++)
+		{
+			p = node + ((Quaternion.Euler(0, 0, i) * Vector3.up) * distance);
+			if (Vector3.Distance(pos, p) < Vector3.Distance(min, p))
+			{
+				min = p;
+				f = i;
+			}
+		}
+
+		return f;
+	}
+
 	private void FixedUpdate()
 	{
 		PlanetHandler closestPlanet = GetClosestPlanet();
+
+		if ((planet == null || closestPlanet != planet) && jumpTimer <= 0f)
+		{
+			planet = closestPlanet;
+			playerDistance = Vector3.Distance(planet.planet.position, playerNode.position);
+			changeForce = Quaternion.Euler(0, 0, playerRotation + 90 * direction) * Vector3.up;
+			changeForceFalloff = 1f;
+			playerRotation = FindRotation(player.position, playerDistance, planet.planet.position);
+
+			jumpTimer = jumpTimeout;
+			direction *= -1f;
+			currentVerticalSpeed *= -1f;
+			inputIsBlocked = true;
+		}
+		jumpTimer -= Time.fixedDeltaTime;
+
+
+		/*
 		Vector3 tempPos = player.position;
 
 		if ((planet == null || closestPlanet != planet) && jumpTimer <= 0f)
 		{
-            //Debug.Log(String.Format("Old Position: {0} {1} {2}", playerNode.GetChild(0).transform.position.x, playerNode.transform.position.y, playerNode.transform.position.z));
+			//Debug.Log(String.Format("Old Position: {0} {1} {2}", playerNode.GetChild(0).transform.position.x, playerNode.transform.position.y, playerNode.transform.position.z));
 			jumpTimer = jumpTimeout;
-            direction *= -1f;
+			direction *= -1f;
 
-            var savePos = playerNode.transform.position;
-            //Debug.Log("Save Pos: " + savePos);
+			var savePos = playerNode.transform.position;
+			//Debug.Log("Save Pos: " + savePos);
 
-            playerNode.transform.position = closestPlanet.planet.position;
-            player.transform.position = savePos;
+			playerNode.transform.position = closestPlanet.planet.position;
+			player.transform.position = savePos;
 
-            var newDownVec = closestPlanet.transform.position - player.GetChild(0).transform.position;
+			var newDownVec = closestPlanet.transform.position - player.GetChild(0).transform.position;
 
-            var angle = Vector3.Angle(newDownVec, playerNode.transform.localEulerAngles);
+			var angle = Vector3.Angle(newDownVec, playerNode.transform.localEulerAngles);
 
-            playerNode.GetChild(0).transform.Rotate(Vector3.forward, angle);
+			player.transform.Rotate(Vector3.forward, angle);
 
-            currentVerticalSpeed *= -1f;
+			currentVerticalSpeed *= -1f;
 			inputIsBlocked = true;
 			planet = closestPlanet;
+			Debug.Log(player.transform.position);
+			Debug.Log(playerNode.rotation);
 		}
 		else
 		{
 			playerNode.transform.position = planet.planet.position;
+		}
+		if (player.transform.position.y < 0f)
+		{
+			player.transform.position = new Vector3(-player.transform.position.x, -player.transform.position.y);
+			playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z + 180f);
+			Debug.Log(player.transform.position);
+			Debug.Log(playerNode.rotation);
 		}
 		jumpTimer -= Time.fixedDeltaTime;
 		CalculateVerticalMovement();
@@ -203,22 +302,9 @@ public class PlayerController : MonoBehaviour
 		if (player.localPosition.y > MaxDistance)
 			player.localPosition = new Vector3(player.localPosition.x, MaxDistance, player.localPosition.z);
 		playerNode.rotation = Quaternion.Euler(playerNode.rotation.eulerAngles.x, playerNode.rotation.eulerAngles.y, playerNode.rotation.eulerAngles.z + ((baseSpeed * direction) * Time.fixedDeltaTime));
-	}
+		*/
 
-	float GetAngle(Vector3 planetA, Vector3 planetB, Vector3 player)
-	{
-		float a = Mathf.Pow(Vector3.Distance(planetA, planetB), 2f);
-		float b = Mathf.Pow(Vector3.Distance(planetA, player), 2f);
-		float c = Mathf.Pow(Vector3.Distance(planetB, player), 2f);
-
-		Debug.Log(a);
-		Debug.Log(b);
-		Debug.Log(c);
-
-		Debug.Log(Mathf.Acos((-0.5f * a + 0.5f * b + 0.5f * c) / (b * c)) * Mathf.Rad2Deg);
-
-		return Mathf.Acos ((-0.5f * a + 0.5f * b + 0.5f * c) / (b * c));
-
+		Move();
 	}
 
 
@@ -262,6 +348,7 @@ public class PlayerController : MonoBehaviour
 				currentVerticalSpeed = 0f;
 			else
 				currentVerticalSpeed *= -bounciness;
+			touchedGround = true;
 		}
 
 	}

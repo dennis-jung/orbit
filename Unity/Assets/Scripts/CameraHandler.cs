@@ -11,6 +11,6 @@ public class CameraHandler : MonoBehaviour
 	private void LateUpdate()
 	{
 		transform.position = new Vector3(player.position.x, player.position.y, -50);
-		cam.orthographicSize = player.localPosition.y;
+		cam.orthographicSize = playerController.playerDistance;
 	}
 }

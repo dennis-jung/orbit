@@ -55,6 +55,11 @@ public class FlobbliHandler : MonoBehaviour
 
 	}
 
+	public void GetLost()
+	{
+
+	}
+
 	private void Update()
 	{
 		if (doRotate)
