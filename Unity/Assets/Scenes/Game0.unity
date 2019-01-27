@@ -502,7 +502,7 @@ MonoBehaviour:
   countLevel1: 5
   countLevel2: 10
   countLevel3: 20
-  minDistance: 50
+  minDistance: 30
 --- !u!4 &1802516459
 Transform:
   m_ObjectHideFlags: 0
