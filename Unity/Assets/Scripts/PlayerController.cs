@@ -58,12 +58,18 @@ public class PlayerController : MonoBehaviour
 	public float MaxDistance = 200f;
 	public bool touchedGround;
 
-	private void Start()
+    private Animator anim;
+    private Transform sprite;
+
+    private void Start()
 	{
 		eatingFlobbli = null;
 		touchedFlobbli = null;
 		flobbliCatched = new List<FlobbliHandler>();
 		playerDistance = planet.PlanetSize * 2;
+
+        anim = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>().gameObject.transform;
 	}
 	[Space]
 	public float playerRotation;
@@ -77,8 +83,6 @@ public class PlayerController : MonoBehaviour
 
 	private void Move()
 	{
-
-
 		playerRotation += (baseSpeed * direction) * Time.fixedDeltaTime;
 		if (playerRotation >= 360f)
 			playerRotation -= 360f;
@@ -87,6 +91,10 @@ public class PlayerController : MonoBehaviour
 
 		CalculateVerticalMovement();
 		playerDistance += currentVerticalSpeed;
+
+        //animation-stuff
+        anim.SetFloat("ySpeed", currentVerticalSpeed);
+        sprite.localScale = new Vector3(Math.Abs(sprite.localScale.x) * direction * -1, sprite.localScale.y, sprite.localScale.z);
 
 		Vector3 vector = Quaternion.Euler(0, 0, playerRotation) * Vector3.up;
 		playerNode.position = planet.planet.transform.position + (vector * playerDistance);
@@ -139,7 +147,10 @@ public class PlayerController : MonoBehaviour
 	public float throwHeightVar;
 	void LooseMinions()
 	{
-		FlobbliHandler fh = null;
+        //animation-stuff
+        anim.SetTrigger("bounce");
+
+        FlobbliHandler fh = null;
 		if (planet.isHome)
 		{
 			while (flobbliCatched.Count != 0)
@@ -186,7 +197,10 @@ public class PlayerController : MonoBehaviour
 
 	void CatchProgres()
 	{
-		if (touchedFlobbli != null)
+        //animation-stuff
+        anim.SetBool("absorbing", touchedFlobbli != null);
+
+        if (touchedFlobbli != null)
 		{
 			flobbliCatchTimer -= Time.deltaTime;
 
@@ -214,7 +228,10 @@ public class PlayerController : MonoBehaviour
 			eatingFlobbli.flobbli.transform.position = eatingFlobbli.transform.position;
 			if (flobbliEatProgress >= 1f)
 			{
-				eatingFlobbli.transform.SetParent(stomach);
+                //animation-stuff
+                anim.SetTrigger("absorb");
+
+                eatingFlobbli.transform.SetParent(stomach);
 				eatingFlobbli.maxFloat = stomachRadius * player.lossyScale.x;
 				eatingFlobbli.doFloat = true;
 				eatingFlobbli.floatDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f).normalized;
@@ -399,7 +416,10 @@ public class PlayerController : MonoBehaviour
 		{
 			if (Time.time < tapTime + doubleTapTime && Time.time > boostTime + boostCooldown)
 			{
-				boostTime = Time.time;
+                //animation-stuff
+                anim.SetTrigger("push");
+
+                boostTime = Time.time;
 				currentVerticalSpeed = boostForce;
 			}
 			tapTime = Time.time;
