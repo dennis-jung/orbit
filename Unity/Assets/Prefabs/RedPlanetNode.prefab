@@ -86,6 +86,10 @@ MonoBehaviour:
   - {fileID: 1513350785978441971, guid: f9118e63472cedf4d99af52449e27d1a, type: 3}
   innerPlants:
   - {fileID: 2396771672747397564, guid: 44b0df68a34889347b027e600dcc31dc, type: 3}
+  creature: {fileID: 5780446482633948860, guid: c01c0773baef0ad4dade6d9884bb4baa,
+    type: 3}
+  minCreatures: 5
+  maxCreatures: 15
 --- !u!1001 &7983658253552226230
 PrefabInstance:
   m_ObjectHideFlags: 0

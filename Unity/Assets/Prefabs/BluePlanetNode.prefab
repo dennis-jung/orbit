@@ -135,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7008699861769503735}
   - component: {fileID: 661053833005600576}
+  - component: {fileID: 502617440140351951}
   m_Layer: 0
   m_Name: planet
   m_TagString: Untagged
@@ -185,3 +186,23 @@ MonoBehaviour:
   - {fileID: 7406252344373658946, guid: bece497354231b04cb31149cc92f6e71, type: 3}
   - {fileID: 3547246020010356777, guid: dc71017495305d7468aa4d91fdb194ea, type: 3}
   - {fileID: 2789938263178590057, guid: 238c6f95a4faba64cb5d26fa27cb71f6, type: 3}
+  creature: {fileID: 4898396280873386842, guid: 642d07fa5224f4342a08927c551cae8e,
+    type: 3}
+  minCreatures: 5
+  maxCreatures: 20
+--- !u!58 &502617440140351951
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008699861769805783}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
