@@ -1,4 +1,5 @@
 {a82ae2ca-693e-40f1-a4bd-fd9965af306a} event:/Kinder/Schritte
+{230061ac-5530-4fb6-9d0d-47d77cd9c372} event:/Musik/Musik
 {18ee50fc-2297-4c3d-92dd-5eb30209255b} event:/Mutter/Aufkommen
 {e24e3c74-b44c-4c42-8826-54cfca2dbb42} event:/Mutter/Schweben
 {1c14c111-d82c-4bd6-b75f-ee266697c860} bus:/

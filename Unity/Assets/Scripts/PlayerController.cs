@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	public Transform playerNode;
 	public Transform player;
 	public PlanetHandler planet;
+	public PlanetHandler closestPlanet;
 	[Space]
 	public float maxDownSpeed;
 	public float maxUpSpeed;
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
 		if (planet.isHome || !flobbli.isFree)
 			return;
 		int amount = flobbliCatched.Count;
+		planet.tierchen--;
 		if (eatingFlobbli != null)
 			amount++;
 		if (touchedFlobbli == null && amount < maxCatching)
@@ -170,6 +172,7 @@ public class PlayerController : MonoBehaviour
 
 	void ByeFlobbli(FlobbliHandler fh)
 	{
+		planet.tierchen++;
 		fh.planet = planet;
 		fh.node.rotation = Quaternion.Euler(0, 0, playerRotation);
 		fh.flobbli.localPosition = new Vector3(0, playerDistance, 0);
@@ -306,7 +309,7 @@ public class PlayerController : MonoBehaviour
 	//hi
 	private void FixedUpdate()
 	{
-		PlanetHandler closestPlanet = GetClosestPlanet();
+		closestPlanet = GetClosestPlanet();
 		if (closestPlanet != planet && jumpTimer <= 0f) {
 			if (Vector3.Distance(planet.planet.position, closestPlanet.planet.position) >=
 				Vector3.Distance(planet.planet.position, player.position) +
