@@ -32,7 +32,7 @@ public class CameraHandler : MonoBehaviour
 		float maxDistance = levelGenerator.minDistance;
 
 		if (player.playerDistance > maxDistance)
-			cam.orthographicSize 
+			//cam.orthographicSize 
 			cam.orthographicSize = player.playerDistance;
 
 
