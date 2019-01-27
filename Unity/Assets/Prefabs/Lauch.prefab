@@ -205,3 +205,4 @@ MonoBehaviour:
   floatDirection: {x: 0, y: 0, z: 0}
   doFloat: 0
   floatRandomizer: 0.1
+  flobbliRotationSpeed: 2

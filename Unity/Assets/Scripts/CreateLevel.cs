@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CreateLevel : MonoBehaviour
 {
 
     [SerializeField]
-    private Transform planet;
+    private Transform[] planets;
+
+    [SerializeField]
+    private Transform[] asteroids;
 
     [SerializeField]
     private int countLevel1 = 5;
@@ -18,42 +22,53 @@ public class CreateLevel : MonoBehaviour
     private int countLevel3 = 20;
 
     [SerializeField]
-    private float minDistance = 100.0f;
+    public float minDistance = 50.0f;
 
+    private int count = 0;
+
+    private Transform GetNextPlanet()
+    {
+        var nextCount = ++count % planets.Length;
+        return planets[nextCount];
+    }
+
+    private Transform GetNextAsteroid()
+    {
+        var nextCount = ++count % asteroids.Length;
+        return asteroids[nextCount];
+    }
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < countLevel1; i++)
+        CreatePlanets(countLevel1, 50.0f);
+        CreatePlanets(countLevel2, 100.0f);
+        CreatePlanets(countLevel3, 150.0f);
+
+        CreateAsteroids(10, 50.0f);
+    }
+
+    private void CreatePlanets(int count, float distanceFromCenter)
+    {
+        for (int i = 0; i < count; i++)
         {
-            var vec = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0f);
+            var vec = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), UnityEngine.Random.Range(-10.0f, 10.0f), 0f);
             vec.Normalize();
-            var newPos = vec * 200.0f;
+            var newPos = vec * distanceFromCenter;
             if (CheckDistances(newPos))
             {
-                Instantiate(planet, newPos, Quaternion.identity);
+                Instantiate(GetNextPlanet(), newPos, Quaternion.identity);
             }
         }
+    }
 
-        for (int i = 0; i < countLevel2; i++)
+    private void CreateAsteroids(int count, float distanceFromCenter)
+    {
+        for (int i = 0; i < count; i++)
         {
-            var vec = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0f);
+            var vec = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), UnityEngine.Random.Range(-10.0f, 10.0f), 0f);
             vec.Normalize();
-            var newPos = vec * 400.0f;
-            if (CheckDistances(newPos))
-            {
-                Instantiate(planet, newPos, Quaternion.identity);
-            }
-        }
-
-        for (int i = 0; i < countLevel3; i++)
-        {
-            var vec = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0f);
-            vec.Normalize();
-            var newPos = vec * 600.0f;
-            if (CheckDistances(newPos))
-            {
-                Instantiate(planet, newPos, Quaternion.identity);
-            }
+            var newPos = vec * (distanceFromCenter + UnityEngine.Random.Range(-10.0f, 10.0f));
+            Instantiate(GetNextAsteroid(), newPos, Quaternion.identity);
         }
     }
 

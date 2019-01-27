@@ -9,6 +9,8 @@ public class PlanetHandler : MonoBehaviour
 
 	float BasePlanetSize = 10f;
 	public float planetSizeFactor;
+	public bool isHome;
+	public int tierchen;
 
 	public float PlanetSize
 	{

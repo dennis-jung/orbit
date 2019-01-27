@@ -14,17 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114182373184931200}
-  - {fileID: 114878997023656730}
+  - {fileID: 114467108336922552}
   EditorEvents:
   - {fileID: 114848485398122784}
   - {fileID: 114267489243280126}
   - {fileID: 114596664669232614}
   MasterBanks:
   - {fileID: 114878997023656730}
+  - {fileID: 114852635317781942}
+  - {fileID: 114655601200522248}
   StringsBanks:
   - {fileID: 114182373184931200}
-  stringsBankWriteTime: 636841326396934709
+  stringsBankWriteTime: 636841513588328817
   cacheVersion: 3
+--- !u!114 &114031021873442638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonImpulse
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114064392308171576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,6 +59,25 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114145821643972994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Dennis\Documents\GitHub\orbit\Unity\Assets\FMOD\Desktop\Master Bank.bank
+  lastModified: 636841343570981716
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 497664
+  Exists: 1
 --- !u!114 &114182373184931200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,12 +91,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636841326396934709
+  lastModified: 636841513588328817
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 836
   Exists: 1
+--- !u!114 &114229214527364718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "H\xF6he"
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114267489243280126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,16 +128,147 @@ MonoBehaviour:
   Path: event:/Kinder/Schritte
   guid: cae22aa83e69f140a4bdfd9965af306a
   Banks:
-  - {fileID: 114878997023656730}
+  - {fileID: 114467108336922552}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114571041549463592}
+  - {fileID: 114790190379421270}
   MinDistance: 1
   MaxDistance: 20
   Length: 390
+--- !u!114 &114282393076497176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonImpulse
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114301798243047942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "H\xF6he"
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114367536295921938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Kind
+  Min: 0
+  Max: 2
+  Default: 0
+--- !u!114 &114467108336922552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\mmehl\Documents\GitHub\orbit\Unity\Assets\FMOD\Desktop\Master Bank.bank
+  lastModified: 636841513588298822
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 497664
+  Exists: 1
+--- !u!114 &114474581748762368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "H\xF6he"
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114538321603835194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonImpulse
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114541039035184636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "H\xF6he"
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114543575223626340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Kind
+  Min: 0
+  Max: 2
+  Default: 0
+--- !u!114 &114564416505655758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,6 +300,22 @@ MonoBehaviour:
   Min: 0
   Max: 2
   Default: 0
+--- !u!114 &114589247688676830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonHold
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114596664669232614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +331,7 @@ MonoBehaviour:
   Path: event:/Mutter/Aufkommen
   guid: fc50ee1897223d4c92dd5eb30209255b
   Banks:
-  - {fileID: 114878997023656730}
+  - {fileID: 114467108336922552}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -139,6 +339,89 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2368
+--- !u!114 &114616543548537186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonHold
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114655601200522248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\mmehl\Documents\GitHub\orbit\Unity\Assets\FMOD\Desktop\Master Bank.bank
+  lastModified: 636841513588298822
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 497664
+  Exists: 0
+--- !u!114 &114713121889307606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Kind
+  Min: 0
+  Max: 2
+  Default: 0
+--- !u!114 &114790190379421270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Kind
+  Min: 0
+  Max: 2
+  Default: 0
+--- !u!114 &114839576586887878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonHold
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114848485398122784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,17 +437,52 @@ MonoBehaviour:
   Path: event:/Mutter/Schweben
   guid: 743c4ee24cb4424c882654cfca2dbb42
   Banks:
-  - {fileID: 114878997023656730}
+  - {fileID: 114467108336922552}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114064392308171576}
-  - {fileID: 114538321603835194}
-  - {fileID: 114929864550268138}
+  - {fileID: 114541039035184636}
+  - {fileID: 114031021873442638}
+  - {fileID: 114839576586887878}
   MinDistance: 1
   MaxDistance: 20
   Length: 3320
+--- !u!114 &114852635317781942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Dennis\Documents\GitHub\orbit\Unity\Assets\FMOD\Desktop\Master Bank.bank
+  lastModified: 636841343570981716
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 497664
+  Exists: 0
+--- !u!114 &114864009272911230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonImpulse
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114878997023656730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +502,23 @@ MonoBehaviour:
   FileSizes:
   - Name: 
     Value: 497664
-  Exists: 1
+  Exists: 0
+--- !u!114 &114884503504553276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ButtonHold
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114929864550268138
 MonoBehaviour:
   m_ObjectHideFlags: 0

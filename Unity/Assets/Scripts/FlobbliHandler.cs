@@ -43,15 +43,81 @@ public class FlobbliHandler : MonoBehaviour
 		get { return Vector3.Distance(flobbli.position, planet.planet.position) - flobbli.localScale.x / 2f; }
 	}
 
+	public float DistanceToSurface
+	{
+		get { return DistanceToPlanet - planet.PlanetSize; }
+	}
+
 	private void Start()
 	{
+		
 		decisionMaker = StartCoroutine(makeDecisions());
 		flobbli.localPosition = new Vector3(flobbli.localPosition.x, planet.PlanetSize + flobbli.localScale.x / 2f, flobbli.localPosition.z);
 		if (UnityEngine.Random.Range(-1f, 1f) < 0f)
 			direction = -1f;
 		else
 			direction = 1f;
-		flobbli.rotation = Quaternion.Euler(flobbli.rotation.eulerAngles.x, flobbli.rotation.eulerAngles.y, UnityEngine.Random.Range(0f, 360f));
+		node.rotation = Quaternion.Euler(node.rotation.eulerAngles.x, node.rotation.eulerAngles.y, UnityEngine.Random.Range(0f, 360f));
+		
+	}
+
+	public void GetLost(float speed, float height)
+	{
+		doRotate = false;
+		doFloat = false;
+		StartCoroutine(RotateToNormal());
+		StartCoroutine(FlyAway(speed, height));
+	}
+
+	public float flobbliRotationSpeed = 2f;
+	IEnumerator RotateToNormal()
+	{
+
+		while (Mathf.Abs(flobbli.localRotation.eulerAngles.z) > flobbliRotationSpeed)
+		{
+			if (flobbli.localRotation.eulerAngles.z > 0f)
+				flobbli.localRotation = Quaternion.Euler(0, 0, flobbli.localRotation.eulerAngles.z - flobbliRotationSpeed);
+			else
+				flobbli.localRotation = Quaternion.Euler(0, 0, flobbli.localRotation.eulerAngles.z + flobbliRotationSpeed);
+			yield return null;
+		}
+		flobbli.localRotation = Quaternion.Euler(0, 0, 0);
+	}
+
+	IEnumerator FlyAway(float speed, float height)
+	{
+		if (UnityEngine.Random.Range(-1f, 1f) < 0f)
+			direction = -1f;
+		else
+			direction = 1f;
+
+		currentVerticalSpeed = height;
+		speedMod = speed / baseSpeed;
+
+
+		bool isDone = false;
+
+		while (!isDone)
+		{
+			if (DistanceToSurface < -1f)
+				flobbli.localPosition = new Vector3(flobbli.localPosition.x, planet.PlanetSize + flobbli.localScale.x / 2f, flobbli.localPosition.z);
+				CalculateVerticalMovement();
+				flobbli.localPosition = new Vector3(flobbli.localPosition.x, flobbli.localPosition.y + currentVerticalSpeed, flobbli.localPosition.z);
+				node.rotation = Quaternion.Euler(node.rotation.eulerAngles.x, node.rotation.eulerAngles.y, node.rotation.eulerAngles.z + ((baseSpeed * direction * speedMod) / 60f));
+				node.transform.position = planet.planet.position;
+
+			if (speedMod <= 1.05f && currentVerticalSpeed == 0f)
+			{
+				isFree = true;
+				isDone = true;
+			}
+
+			speedMod *= 0.99f;
+			//Debug.Log(speedMod);
+
+			yield return null;
+		}
+		decisionMaker = StartCoroutine(makeDecisions());
 
 	}
 
@@ -74,6 +140,8 @@ public class FlobbliHandler : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (DistanceToSurface < -5f)
+			flobbli.localPosition = new Vector3(flobbli.localPosition.x, planet.PlanetSize + flobbli.localScale.x / 2f, flobbli.localPosition.z);
 		if (isFree)
 		{
 			CalculateVerticalMovement();
@@ -128,12 +196,12 @@ public class FlobbliHandler : MonoBehaviour
 	{
 		currentVerticalSpeed -= downForce;
 
-		if (currentVerticalSpeed < -maxDownSpeed)
-			currentVerticalSpeed = -maxDownSpeed;
+		//if (currentVerticalSpeed < -maxDownSpeed)
+			//currentVerticalSpeed = -maxDownSpeed;
 
-		if (currentVerticalSpeed < 0f && planet.PlanetSize >= DistanceToPlanet)
+		if (currentVerticalSpeed < 0f && DistanceToSurface <= 0f)
 		{
-			if (Mathf.Abs(currentVerticalSpeed) < maxDownSpeed * bounceLimit)
+			if (Mathf.Abs(currentVerticalSpeed) < bounceLimit)
 				currentVerticalSpeed = 0f;
 			else
 				currentVerticalSpeed *= -bounciness;
