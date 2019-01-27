@@ -67,7 +67,7 @@ public class CreateLevel : MonoBehaviour
         {
             var vec = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), UnityEngine.Random.Range(-10.0f, 10.0f), 0f);
             vec.Normalize();
-            var newPos = vec * distanceFromCenter;
+            var newPos = vec * (distanceFromCenter + UnityEngine.Random.Range(-10.0f, 10.0f));
             Instantiate(GetNextAsteroid(), newPos, Quaternion.identity);
         }
     }
