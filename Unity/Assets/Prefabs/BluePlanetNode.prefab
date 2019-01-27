@@ -169,5 +169,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73de0d268bd48b44ab65fda2385497d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outerPlants: []
-  innerPlants: []
+  outerPlants:
+  - {fileID: 2855198994014009819, guid: 0e4d848b9e2f2744f8b42dbce2494434, type: 3}
+  - {fileID: 9211488736734604, guid: 45a508b32ee7a294198a526eb31576ce, type: 3}
+  - {fileID: 1210887670068653927, guid: 9f524102f4940944a9df5a529440f08e, type: 3}
+  - {fileID: 8200946331349851597, guid: 011e482fe049c6d42a89e7abb3ff1faa, type: 3}
+  - {fileID: 1105766350337631309, guid: 625f4ce1c031fa4429b2972c73a8188a, type: 3}
+  - {fileID: 8672356484026041368, guid: 86971aa14361e564da1438f82026978a, type: 3}
+  - {fileID: 6699306987142438473, guid: 8c92972b576bae8428b409b305d3b435, type: 3}
+  - {fileID: 4104552561731057355, guid: cb257d353ef7ede41b03623500012cb2, type: 3}
+  - {fileID: 8214056312907312761, guid: 1326a8bdec49d2f42806219a692e0091, type: 3}
+  - {fileID: 3939634219208446253, guid: 2cb62a71b0b5b6042b357d3ac7ecd241, type: 3}
+  innerPlants:
+  - {fileID: 2053783027075825248, guid: 4b3a1abb90f22c643b314af7fa28c9c8, type: 3}
+  - {fileID: 7406252344373658946, guid: bece497354231b04cb31149cc92f6e71, type: 3}
+  - {fileID: 3547246020010356777, guid: dc71017495305d7468aa4d91fdb194ea, type: 3}
+  - {fileID: 2789938263178590057, guid: 238c6f95a4faba64cb5d26fa27cb71f6, type: 3}

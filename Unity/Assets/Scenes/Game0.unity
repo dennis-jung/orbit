@@ -450,6 +450,7 @@ MonoBehaviour:
   planetNode: {fileID: 493529216}
   planet: {fileID: 296433273}
   planetSizeFactor: 1
+  isHome: 0
 --- !u!1 &499443080
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +551,11 @@ MonoBehaviour:
   eatingFlobbli: {fileID: 0}
   flobbliCatched: []
   MaxDistance: 200
+  touchedGround: 0
+  playerRotation: 0
+  playerDistance: 0
+  changeForceTime: 2
+  changeForcePower: 2
 --- !u!4 &1405225962
 Transform:
   m_ObjectHideFlags: 0
@@ -769,7 +775,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c301ab2274462408c3ef86b021a117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planet: {fileID: 8135466655887222674}
+  planets:
+  - {fileID: 4370428743621179571, guid: 05e3f370e7c1f0249aa0008a6373b6bc, type: 3}
+  - {fileID: 2060146870449354800, guid: 4348600bc663f574ba154ad28cdd0f87, type: 3}
+  - {fileID: 3688061390837591664, guid: fd95d1c7183a9fb4887bc12085b89710, type: 3}
   countLevel1: 5
   countLevel2: 10
   countLevel3: 20
@@ -1164,9 +1173,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd95d1c7183a9fb4887bc12085b89710, type: 3}
---- !u!4 &8135466655887222674 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3688061390837591664, guid: fd95d1c7183a9fb4887bc12085b89710,
-    type: 3}
-  m_PrefabInstance: {fileID: 4884254515492309474}
-  m_PrefabAsset: {fileID: 0}
