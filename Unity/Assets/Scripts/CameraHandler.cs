@@ -53,8 +53,18 @@ public class CameraHandler : MonoBehaviour
 	public float baseSize;
 	float GetTargetSize()
 	{
+<<<<<<< HEAD
 		float distance = player.DistanceToSurface;
 		float maxDistance = level.minDistance / 2f;
+=======
+		float targetSize = 1f;
+		float maxDistance = levelGenerator.minDistance;
+
+		if (player.playerDistance > maxDistance)
+			//cam.orthographicSize 
+			cam.orthographicSize = player.playerDistance;
+
+>>>>>>> 6daf515e145e7e06ac82aa844bf8f3134097a675
 
 		if (distance > maxDistance)
 			distance = maxDistance;
