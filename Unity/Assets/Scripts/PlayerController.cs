@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
 				jumpTimer = jumpTimeout;
 				direction *= -1f;
 				currentVerticalSpeed *= -1f;
-				inputIsBlocked = true;
+				//inputIsBlocked = true;
 			}
 
 		}
