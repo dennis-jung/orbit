@@ -271,6 +271,11 @@ public class PlayerController : MonoBehaviour
 		get { return Vector3.Distance(player.position, planet.planet.position) - player.localScale.x/2f; }
 	}
 
+	public float DistanceToSurface
+	{
+		get { return DistanceToPlanet - planet.PlanetSize; }
+	}
+
 	float FindRotation(Vector3 pos, float distance, Vector3 node)
 	{
 		Vector3 min = node + ((Quaternion.Euler(0, 0, 0) * Vector3.up) * distance);
