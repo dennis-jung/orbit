@@ -33,7 +33,8 @@ public class CameraHandler : MonoBehaviour
 		if (Mathf.Abs(dif) < maxChange)
 		{
 			cam.orthographicSize = target;
-		} else if (Mathf.Abs(dif) > maxChange)
+		}
+		else if (Mathf.Abs(dif) > maxChange)
 		{
 			cam.orthographicSize = current + maxChange * dir;
 		}
@@ -48,23 +49,13 @@ public class CameraHandler : MonoBehaviour
 
 	}
 
-	[Header ("CamDistanceMods")]
+	[Header("CamDistanceMods")]
 	public float distanceMod;
 	public float baseSize;
 	float GetTargetSize()
 	{
-<<<<<<< HEAD
 		float distance = player.DistanceToSurface;
 		float maxDistance = level.minDistance / 2f;
-=======
-		float targetSize = 1f;
-		float maxDistance = levelGenerator.minDistance;
-
-		if (player.playerDistance > maxDistance)
-			//cam.orthographicSize 
-			cam.orthographicSize = player.playerDistance;
-
->>>>>>> 6daf515e145e7e06ac82aa844bf8f3134097a675
 
 		if (distance > maxDistance)
 			distance = maxDistance;
