@@ -1,2 +1,5 @@
 
 *.log
+Unity/fmod_editor.log
+Unity/Assets/StreamingAssets/Master Bank.strings.bank
+Unity/Assets/StreamingAssets/Master Bank.bank
