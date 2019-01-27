@@ -286,6 +286,7 @@ public class PlayerController : MonoBehaviour
 		return f;
 	}
 
+	//hi
 	private void FixedUpdate()
 	{
 		PlanetHandler closestPlanet = GetClosestPlanet();
