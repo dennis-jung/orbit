@@ -176,10 +176,10 @@ MonoBehaviour:
   flobbli: {fileID: 797165113}
   maxDownSpeed: 0.3
   maxUpSpeed: 0.3
-  downForce: 0.1
-  upForce: 0.1
-  bounciness: 0.2
-  bounceLimit: 1
+  downForce: 0.05
+  upForce: 0.05
+  bounciness: 0.7
+  bounceLimit: 0.5
   baseSpeed: 20
   direction: 1
   speedMod: 1
@@ -206,6 +206,7 @@ MonoBehaviour:
   floatDirection: {x: 0, y: 0, z: 0}
   doFloat: 0
   floatRandomizer: 0.1
+  flobbliRotationSpeed: 2
 --- !u!4 &131357300
 Transform:
   m_ObjectHideFlags: 0
@@ -298,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166286270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70.29, y: -72.99, z: -50}
+  m_LocalPosition: {x: -49, y: 57, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -311,7 +312,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166286270}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28f3320b5a58f304a8ab38c8f38a53b9, type: 3}
   m_Name: 
@@ -573,6 +574,7 @@ MonoBehaviour:
   planetNode: {fileID: 493529216}
   planet: {fileID: 296433273}
   planetSizeFactor: 1
+  isHome: 0
 --- !u!1 &499443080
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +702,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!61 &797165115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -826,7 +828,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!61 &1141130329
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -955,10 +957,15 @@ MonoBehaviour:
   eatingFlobbli: {fileID: 0}
   flobbliCatched: []
   MaxDistance: 200
+  touchedGround: 0
   playerRotation: 0
   playerDistance: 0
   changeForceTime: 3
-  changeForcePower: 3
+  changeForcePower: 1.5
+  throwSpeed: 180
+  throwSpeedVar: 50
+  throwHeight: 1
+  throwHeightVar: 0.2
 --- !u!4 &1405225962
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,7 +1035,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!61 &1532355041
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1132,6 +1139,7 @@ MonoBehaviour:
   planetNode: {fileID: 1734603091}
   planet: {fileID: 1985303648}
   planetSizeFactor: 1
+  isHome: 1
 --- !u!4 &1734603091
 Transform:
   m_ObjectHideFlags: 0
@@ -1334,10 +1342,10 @@ MonoBehaviour:
   flobbli: {fileID: 1141130327}
   maxDownSpeed: 0.3
   maxUpSpeed: 0.3
-  downForce: 0.1
-  upForce: 0.1
-  bounciness: 0.2
-  bounceLimit: 1
+  downForce: 0.05
+  upForce: 0.05
+  bounciness: 0.7
+  bounceLimit: 0.5
   baseSpeed: 20
   direction: 1
   speedMod: 1
@@ -1364,6 +1372,7 @@ MonoBehaviour:
   floatDirection: {x: 0, y: 0, z: 0}
   doFloat: 0
   floatRandomizer: 0.1
+  flobbliRotationSpeed: 2
 --- !u!4 &1930419262
 Transform:
   m_ObjectHideFlags: 0
@@ -1406,7 +1415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985303647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20, y: -254, z: 0}
+  m_LocalPosition: {x: -276, y: -22, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 1734603091}
@@ -1507,10 +1516,10 @@ MonoBehaviour:
   flobbli: {fileID: 1532355039}
   maxDownSpeed: 0.3
   maxUpSpeed: 0.3
-  downForce: 0.1
-  upForce: 0.1
-  bounciness: 0.2
-  bounceLimit: 1
+  downForce: 0.05
+  upForce: 0.05
+  bounciness: 0.7
+  bounceLimit: 0.5
   baseSpeed: 20
   direction: 1
   speedMod: 1
@@ -1537,6 +1546,7 @@ MonoBehaviour:
   floatDirection: {x: 0, y: 0, z: 0}
   doFloat: 0
   floatRandomizer: 0.1
+  flobbliRotationSpeed: 2
 --- !u!4 &2007954767
 Transform:
   m_ObjectHideFlags: 0
@@ -1721,6 +1731,41 @@ PrefabInstance:
       propertyPath: planet
       value: 
       objectReference: {fileID: 493529217}
+    - target: {fileID: 4898396280873386841, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: bounceLimit
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396280873386841, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: bounciness
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396280873386841, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: downForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396280873386841, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: upForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396279253871626, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396279253871626, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898396279253871625, guid: 642d07fa5224f4342a08927c551cae8e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 642d07fa5224f4342a08927c551cae8e, type: 3}
 --- !u!1001 &5780446482573063785
@@ -1795,6 +1840,41 @@ PrefabInstance:
       propertyPath: planet
       value: 
       objectReference: {fileID: 493529217}
+    - target: {fileID: 5780446482633948863, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: bounciness
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482633948863, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: bounceLimit
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482633948863, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: downForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482633948863, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: upForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482593646883, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482593646883, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780446482593646882, guid: c01c0773baef0ad4dade6d9884bb4baa,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c01c0773baef0ad4dade6d9884bb4baa, type: 3}
 --- !u!1001 &9046451567634523493
@@ -1869,5 +1949,30 @@ PrefabInstance:
       propertyPath: planet
       value: 
       objectReference: {fileID: 493529217}
+    - target: {fileID: 9046451568331883566, guid: 57b55fce43278304aac4e658685aff46,
+        type: 3}
+      propertyPath: bounceLimit
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046451568331883566, guid: 57b55fce43278304aac4e658685aff46,
+        type: 3}
+      propertyPath: bounciness
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046451568331883566, guid: 57b55fce43278304aac4e658685aff46,
+        type: 3}
+      propertyPath: downForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046451568331883566, guid: 57b55fce43278304aac4e658685aff46,
+        type: 3}
+      propertyPath: upForce
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046451567167487541, guid: 57b55fce43278304aac4e658685aff46,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57b55fce43278304aac4e658685aff46, type: 3}

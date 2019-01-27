@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
+		eatingFlobbli = null;
+		touchedFlobbli = null;
 		flobbliCatched = new List<FlobbliHandler>();
 		playerDistance = planet.PlanetSize * 2;
 	}
@@ -102,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
 	public void CatchedSomething(FlobbliHandler flobbli)
 	{
-		if (planet.isHome)
+		if (planet.isHome || !flobbli.isFree)
 			return;
 		int amount = flobbliCatched.Count;
 		if (eatingFlobbli != null)
@@ -128,9 +130,55 @@ public class PlayerController : MonoBehaviour
 		//var vec = planet.transform.position - player.transform.position;
 	}
 
+	[Header("FlobbliReleaseParameters")]
+	public float throwSpeed;
+	public float throwSpeedVar;
+	public float throwHeight;
+	public float throwHeightVar;
 	void LooseMinions()
 	{
+		FlobbliHandler fh = null;
+		if (planet.isHome)
+		{
+			while (flobbliCatched.Count != 0)
+			{
+				ByeFlobbli(GetFlobbli());
+			}
+		} else
+		{
+			if (flobbliCatched.Count != 0)
+			{
+				ByeFlobbli(GetFlobbli());
+			} else if (eatingFlobbli != null)
+			{
+				ByeFlobbli(eatingFlobbli);
+				eatingFlobbli = null;
+			}
+		}
+	}
 
+	void ByeFlobbli(FlobbliHandler fh)
+	{
+		fh.planet = planet;
+		fh.node.rotation = Quaternion.Euler(0, 0, playerRotation);
+		fh.flobbli.localPosition = new Vector3(0, playerDistance, 0);
+		fh.GetLost(UnityEngine.Random.Range(-throwSpeedVar, throwSpeedVar) + throwSpeed, UnityEngine.Random.Range(-throwHeightVar, throwHeightVar) + throwHeight);
+	}
+
+	FlobbliHandler GetFlobbli()
+	{
+		FlobbliHandler fh = null;
+		int id = 0;
+		while (fh == null && flobbliCatched.Count != 0)
+		{
+			if (flobbliCatched[id] != null)
+			{
+				fh = flobbliCatched[id];
+				flobbliCatched.RemoveAt(id);
+			}
+		}
+
+		return fh;
 	}
 
 	void CatchProgres()
