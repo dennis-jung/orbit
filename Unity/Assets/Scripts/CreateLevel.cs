@@ -22,7 +22,7 @@ public class CreateLevel : MonoBehaviour
     private int countLevel3 = 20;
 
     [SerializeField]
-    public float minDistance = 100.0f;
+    public float minDistance = 50.0f;
 
     private int count = 0;
 
@@ -40,9 +40,9 @@ public class CreateLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreatePlanets(countLevel1, 100.0f);
-        CreatePlanets(countLevel2, 200.0f);
-        CreatePlanets(countLevel3, 300.0f);
+        CreatePlanets(countLevel1, 50.0f);
+        CreatePlanets(countLevel2, 100.0f);
+        CreatePlanets(countLevel3, 150.0f);
 
         CreateAsteroids(10, 50.0f);
     }
