@@ -40,11 +40,11 @@ public class CreateLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreatePlanets(countLevel1, 200.0f);
-        CreatePlanets(countLevel2, 400.0f);
-        CreatePlanets(countLevel3, 600.0f);
+        CreatePlanets(countLevel1, 100.0f);
+        CreatePlanets(countLevel2, 200.0f);
+        CreatePlanets(countLevel3, 300.0f);
 
-        CreateAsteroids(20, 100.0f);
+        CreateAsteroids(10, 50.0f);
     }
 
     private void CreatePlanets(int count, float distanceFromCenter)
